@@ -1,0 +1,48 @@
+<div class="row-flex background-image">
+    <div style="width: 50%;height: 450px;"><img class="card-img-top" style="height: 450px;" src="../../../assets/icons/baseball.svg" alt="Card image cap"></div>
+    <div class="stadium-form-details">
+        <form [formGroup]="stadiumFormGoup">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="stadiumName">Stadium name</label>
+                <input formControlName="stadiumName" type="text" class="form-control" id="stadiumName" placeholder="Stadium name" >
+              </div>
+              <div class="form-group col-md-6">
+                <label for="stadiumType">Type</label>
+                <select formControlName="stadiumType" id="stadiumType" class="form-control" >
+                  <option
+                *ngFor="let type of stadiumTypes"
+                [value]="type">{{type}}</option>
+                </select>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="stadiumAddress">Stadium address</label>
+              <input formControlName="location" type="text" class="form-control" id="stadiumAddress" placeholder="Stadium address"  >
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input formControlName="city" type="text" class="form-control" id="inputCity" >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <select formControlName="state" id="inputState" class="form-control" >
+                  <option selected>Choose...</option>
+                  <option [value]="'HYD'">HYD</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="stadiumCapacity">Capacity</label>
+                <input formControlName="capacity" type="number" class="form-control" id="stadiumCapacity"  >
+              </div>
+            </div>
+            <div class="update-buttons">
+              <button  role="button" class="btn btn-primary" (click)="editStadium($event)">Edit</button>
+              <button  *ngIf="!(!stadiumFormGoup.disabled && stadiumFormGoup.dirty)" role="button" class="btn btn-primary" (click)="updateStadium($event)" [disabled]="!(!this.stadiumFormGoup.disabled && stadiumFormGoup.dirty)">Save </button>
+            </div>
+            </form>
+    </div>
+</div>
+
+<button class="btn btn-primary" style="margin: 2%;" role="button" routerLink="/stadiums">Go Back</button>

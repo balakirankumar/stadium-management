@@ -1,0 +1,17 @@
+
+<div  class="stadiums background-image"  style="background-image: url(../assets/images/background_{{image_number}}.png);">
+<div class="card stadiums-row" *ngFor="let item of items;let i=index" >
+    <img class="card-img-top" src="../../../assets/images/helmet.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{item.name}}</h5>
+      <p class="card-text">ID: {{item.id}}{{item.type}}@{{item.location}} with capacity of {{item.capacity}}</p>
+      <a  routerLink='/stadiums/{{item.id}}' [queryParams]="{mode:'view'}" class="btn btn-primary">View</a>
+      <a  routerLink='/stadiums/{{item.id}}/matches' [queryParams]="{mode:'view'}" class="btn btn-primary">Mathces</a>
+    </div>
+  </div>
+  <ul class="pager">
+    <li class="previous flex"><button class="btn btn-dark" role="button" (click)="gotoPrevious($event)" [disabled]="pagination.currentPage <= 1">Previous</button></li>
+    <li class="next flex"><button  class="btn btn-dark" role="button" (click)="gotoNext($event)" [disabled]="pagination.currentPage >= totalPages">Next</button></li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

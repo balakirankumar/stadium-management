@@ -1,0 +1,38 @@
+
+
+
+.stadiums {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 28px;
+    margin-top: 30px;
+}
+
+.stadiums-row {
+    width: 35rem;
+    display: inline;
+    margin-bottom: inherit;
+}
+
+
+.pager {
+    display: inline-flex;
+    width: 98%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
+}
+
+
+.background-image {
+    background-repeat: no-repeat;
+background-attachment: fixed;
+background-size:cover;
+/* background: rgb(238,174,202);
+background: linear-gradient(75deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
+}

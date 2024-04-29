@@ -1,0 +1,19 @@
+
+<p>view-matches works!</p>
+
+<div  class="matches background-color">
+
+<div class="card stadiums-row" *ngFor="let item of matches;let i=index" >
+    <img class="card-img-top" src="../../../assets/images/helmet.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{item.matchTitle}}</h5>
+      <p class="card-text">ID: {{item.team_1}} vs {{item.team_2}} @ {{item.statdiumName}}</p>
+      <a  routerLink='/stadiums/{{item.id}}' [queryParams]="{mode:'view'}" class="btn btn-primary">View</a>
+    </div>
+  </div>
+
+  <ul class="pager">
+    <li class="previous flex"><button class="btn btn-dark" role="button" (click)="gotoPrevious($event)" [disabled]="pagination.currentPage <= 1">Previous</button></li>
+    <li class="next flex"><button  class="btn btn-dark" role="button" (click)="gotoNext($event)" [disabled]="pagination.currentPage >= totalPages">Next</button></li>
+  </ul>
+  </div>

@@ -1,0 +1,52 @@
+<div style="width: 50%;margin-left: 31%;margin-top: 5%;">
+    <form [formGroup]="signUpFormGroup">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="firstName">First name</label>
+              <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="First name" >
+              <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastName">Last name</label>
+                <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="Last name" >
+                <div *ngIf="signUpFormGroup.get('lastName')?.invalid && signUpFormGroup.get('lastName')?.touched" class="error-msg">Please specify valid last name</div>
+              </div>
+          </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input formControlName="email" type="text" class="form-control" id="email" name="email" required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <div *ngIf="signUpFormGroup.get('email')?.invalid && signUpFormGroup.get('email')?.touched" class="error-msg">Please specify valid email</div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="country">Country</label>
+              <input formControlName="country" type="text" class="form-control" id="country" placeholder="Country" >
+              <div *ngIf="signUpFormGroup.get('country')?.invalid && signUpFormGroup.get('country')?.touched" class="error-msg">Please specify valid country</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="state">State</label>
+                <input formControlName="state" type="text" class="form-control" id="state" placeholder="state" >
+                <div *ngIf="signUpFormGroup.get('state')?.invalid && signUpFormGroup.get('state')?.touched" class="error-msg">Please specify valid state</div>
+              </div>
+          </div>
+    
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input formControlName="password" type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+          <div *ngIf="signUpFormGroup.get('password')?.invalid && signUpFormGroup.get('password')?.touched" class="error-msg">Required min length of 10 chars.</div>
+        </div>
+    
+        <div class="form-check mb-3">
+          <label class="form-check-label">
+            <input formControlName="agree" class="form-check-input" type="checkbox" name="remember"> Agree to policies.
+          </label>
+        </div>
+        
+        <button type="button" class="btn btn-primary btn-lg btn-block" [disabled]="!signUpFormGroup.valid" (click)="onSignUp()">Login</button>
+    
+    </form>
+    
+        <!-- <app-loading-spinner></app-loading-spinner> -->
+    </div>
