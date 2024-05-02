@@ -7,10 +7,14 @@ import { BookingsComponent } from "./components/bookings/bookings.component";
 import { HomeComponent } from "./components/home/home.component";
 import { ManagersComponent } from "./components/managers/managers.component";
 import { ViewStadiumComponent } from "./components/stadiums/view-stadium/view-stadium.component";
-import { Authguard } from "./authentication/service/auth.guard.service";
+import { Authguard, LoginGuard } from "./authentication/service/auth.guard.service";
 import { LoginComponent } from "./components/login/login.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { ViewMatchesComponent } from "./components/stadiums/view-matches/view-matches.component";
+import { CreateStadiumComponent } from "./components/stadiums/create-stadium/create-stadium.component";
+import { ScheduleMatchComponent } from "./components/schedule-match/schedule-match.component";
+import { BookTicketsComponent } from "./components/book-tickets/book-tickets.component";
+import { ViewMatchComponent } from "./components/stadiums/view-matches/view-match/view-match.component";
 
 
 
@@ -29,6 +33,15 @@ const appRoutes:Routes = [
         component:StadiumsComponent,
     },
     {
+      path:'stadiums/create',
+      component:CreateStadiumComponent,
+      pathMatch:"full"
+    },
+    {
+      path:'schedule/matches',
+      component:ScheduleMatchComponent,
+    },
+    {
       path:'stadiums/:id',
       component:ViewStadiumComponent,
     },
@@ -43,11 +56,22 @@ const appRoutes:Routes = [
     },
     {
       path:"managers",
-      component:ManagersComponent
+      component:ManagersComponent,
+      canActivate:[Authguard]
     },
     {
       path:"bookings",
       component:BookingsComponent
+    },
+    {
+      path:"bookings/book/match/:id/tickets",
+      component:BookTicketsComponent,
+      canActivate:[LoginGuard]
+
+    },
+    {
+      path:"stadium/:id/matches/:matchId",
+      component:ViewMatchComponent
     },
     {
       path:"login",

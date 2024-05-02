@@ -6,13 +6,13 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin-bottom: 28px;
-    margin-top: 30px;
 }
 
 .stadiums-row {
     width: 35rem;
     display: inline;
     margin-bottom: inherit;
+    margin-top: 30px;
 }
 
 

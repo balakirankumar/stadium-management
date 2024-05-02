@@ -9,6 +9,7 @@ import { StadiumService } from './components/stadiums/stadium.service';
 import { AuthService } from './authentication/service/Auth.Service';
 import { AuthGuard } from './authentication/service/auth.guard.service';
 import { AuthInterceptorService } from './authentication/auth.interceptor.service';
+import { CommonService } from './components/shared/service/common.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthInterceptorService } from './authentication/auth.interceptor.servic
     StadiumService,
     AuthService,
     AuthGuard,
+    CommonService,
     {
       provide:HTTP_INTERCEPTORS, 
       useClass:AuthInterceptorService,

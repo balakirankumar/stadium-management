@@ -1,1 +1,32 @@
 <p>approvals works!</p>
+
+<div style="width: 80%;">
+  <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+  <div *ngIf="message.length > 0 " [ngClass]=" isError ? 'alert-danger' : 'alert-success'" class="alert alert-dismissible fade show">
+    <strong>{{isError ? 'error' : 'success'}}</strong> {{message}}..
+    <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="message = ''"></button>
+</div>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Stadium Name</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phonenumber</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="background-hover" *ngFor="let row of managers;let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{row.stadiumName}}</td>
+        <td>{{row.name}}</td>
+        <td>{{row.email}}</td>
+        <td>{{row.phoneNumber}}</td>
+        <td><button class="btn btn-success" (click)="updateStatus(row,true)"> Approve</button> <button class="btn btn-warning ml-2" (click)="updateStatus(row,false)"> Reject</button></td>
+      </tr>
+      </tbody>
+  </table>
+
+</div>

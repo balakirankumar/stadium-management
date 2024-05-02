@@ -11,9 +11,13 @@ import { RouterModule } from '@angular/router';
 import { ViewStadiumComponent } from './stadiums/view-stadium/view-stadium.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ViewMatchesComponent } from './stadiums/view-matches/view-matches.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { CreateStadiumComponent } from './stadiums/create-stadium/create-stadium.component';
+import { BookTicketsComponent } from './book-tickets/book-tickets.component';
+import { ScheduleMatchComponent } from './schedule-match/schedule-match.component';
+import { ViewMatchComponent } from './stadiums/view-matches/view-match/view-match.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +30,13 @@ import { ViewMatchesComponent } from './stadiums/view-matches/view-matches.compo
     HomeComponent,
     ViewStadiumComponent,
     LoginComponent,
-    LoadingSpinnerComponent,
     SignUpComponent,
-    ViewMatchesComponent
+    ViewMatchesComponent,
+    LoadingSpinnerComponent,
+    CreateStadiumComponent,
+    BookTicketsComponent,
+    ScheduleMatchComponent,
+    ViewMatchComponent
   ],
   imports: [BrowserModule,RouterModule,ReactiveFormsModule],
   providers: [],
@@ -44,9 +52,13 @@ import { ViewMatchesComponent } from './stadiums/view-matches/view-matches.compo
     LoginComponent,
     ReactiveFormsModule,
     BrowserModule,
-    LoadingSpinnerComponent,
     SignUpComponent,
     ViewMatchesComponent,
+    LoadingSpinnerComponent,
+    CreateStadiumComponent,
+    BookTicketsComponent,
+    ScheduleMatchComponent,
+    ViewMatchComponent
   ],
 })
 export class ComponentModule {}

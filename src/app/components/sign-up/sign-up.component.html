@@ -1,4 +1,8 @@
 <div style="width: 50%;margin-left: 31%;margin-top: 5%;">
+  <div *ngIf="errorMessage.length>0" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="errorMessage=''"></button>
+</div>
     <form [formGroup]="signUpFormGroup">
 
         <div class="form-row">
@@ -13,11 +17,20 @@
                 <div *ngIf="signUpFormGroup.get('lastName')?.invalid && signUpFormGroup.get('lastName')?.touched" class="error-msg">Please specify valid last name</div>
               </div>
           </div>
-        <div class="form-group">
+          <div class="form-row">
+        <div class="form-group" [ngClass]="this.signUpFormGroup.value.isManager ? 'col-md-6' : 'col-md-12'">
           <label for="email">Email</label>
           <input formControlName="email" type="text" class="form-control" id="email" name="email" required>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           <div *ngIf="signUpFormGroup.get('email')?.invalid && signUpFormGroup.get('email')?.touched" class="error-msg">Please specify valid email</div>
+        </div>
+        <div *ngIf="this.signUpFormGroup.value.isManager" class="form-group col-md-6" >
+          <label for="stadiumName">Stadium</label>
+          <select formControlName="stadiumName" id="stadiumName" class="form-control" >
+            <option *ngFor="let stadium of stadiums; let i= index" [value]="stadium.name">{{stadium.name}}</option>
+          </select>
+          <div *ngIf="signUpFormGroup.get('stadiumName')?.invalid && signUpFormGroup.get('stadiumName')?.touched" class="error-msg">Please select stadium</div>
+        </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -26,9 +39,9 @@
               <div *ngIf="signUpFormGroup.get('country')?.invalid && signUpFormGroup.get('country')?.touched" class="error-msg">Please specify valid country</div>
             </div>
             <div class="form-group col-md-6">
-                <label for="state">State</label>
-                <input formControlName="state" type="text" class="form-control" id="state" placeholder="state" >
-                <div *ngIf="signUpFormGroup.get('state')?.invalid && signUpFormGroup.get('state')?.touched" class="error-msg">Please specify valid state</div>
+                <label for="phoneNumber">Phonenumber</label>
+                <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="PhoneNumber" >
+                <div *ngIf="signUpFormGroup.get('phoneNumber')?.invalid && signUpFormGroup.get('phoneNumber')?.touched" class="error-msg">Please specify valid number</div>
               </div>
           </div>
     
@@ -38,14 +51,21 @@
           <div *ngIf="signUpFormGroup.get('password')?.invalid && signUpFormGroup.get('password')?.touched" class="error-msg">Required min length of 10 chars.</div>
         </div>
     
-        <div class="form-check mb-3">
+        <div class="form-row">
+        <div class="form-check col-md-5 mb-3" style="margin-left: 10%;">
           <label class="form-check-label">
-            <input formControlName="agree" class="form-check-input" type="checkbox" name="remember"> Agree to policies.
+            <input formControlName="agree" class="form-check-input" type="checkbox" name="remember"> agree to policies.
           </label>
         </div>
-        
-        <button type="button" class="btn btn-primary btn-lg btn-block" [disabled]="!signUpFormGroup.valid" (click)="onSignUp()">Login</button>
-    
+        <div class="form-check col-md-5 mb-3">
+          <label class="form-check-label">
+            <input formControlName="isManager" class="form-check-input" type="checkbox" name="isManager"> Sign up as manager.
+          </label>
+
+        </div>
+        </div>
+
+<button type="button" class="btn btn-primary btn-lg btn-block" [disabled]="!signUpFormGroup.valid" (click)="onSignUp()">Sign up</button>
     </form>
     
         <!-- <app-loading-spinner></app-loading-spinner> -->

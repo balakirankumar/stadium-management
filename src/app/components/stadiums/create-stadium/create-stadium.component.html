@@ -1,0 +1,60 @@
+
+<div *ngIf="message.length > 0 " [ngClass]=" isError ? 'alert-danger' : 'alert-success'" class="alert alert-dismissible fade show">
+    <strong>{{isError ? 'error' : 'success'}}</strong> {{message}}..
+    <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="message = '';isError=!isError"></button>
+  </div>
+  <div class="row-flex background-image">
+    <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+      <div style="width: 50%;height: 500px;padding: 2%;"><img class="card-img-top" style="height: 450px;" [src]="stadiumFormGoup.get('imageUrl')?.value" alt="Card image cap"></div>
+      <div class="stadium-form-details">
+          <form [formGroup]="stadiumFormGoup">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="name">Stadium name</label>
+                  <input formControlName="name" type="text" class="form-control" id="name" placeholder="Stadium name" >
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="stadiumType">Type</label>
+                  <select formControlName="stadiumType" id="stadiumType" class="form-control" >
+                    <option
+                  *ngFor="let type of stadiumTypes"
+                  [value]="type">{{type}}</option>
+                  </select>
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                <label for="stadiumAddress">Stadium address</label>
+                <input formControlName="location" type="text" class="form-control" id="stadiumAddress" placeholder="Stadium address"  >
+              </div>
+              <div class="form-group col-md-7">
+                <label for="imageUrl">Stadium image</label>
+                <input formControlName="imageUrl" type="text" class="form-control" id="imageUrl" placeholder="Image Url"  >
+              </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputCity">City</label>
+                  <input formControlName="city" type="text" class="form-control" id="inputCity" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <select formControlName="state" id="inputState" class="form-control" >
+                    <option selected>Choose...</option>
+                    <option [value]="'HYD'">HYD</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="stadiumCapacity">Capacity</label>
+                  <input formControlName="capacity" type="number" class="form-control" id="stadiumCapacity"  >
+                </div>
+              </div>
+              <div class="update-buttons">
+                <button  role="button" class="btn btn-primary" (click)="saveStadium()" [disabled]="!stadiumFormGoup.valid">Save </button>
+              </div>
+              </form>
+      </div>
+  </div>
+  
+  <button class="btn btn-primary" style="margin: 2%;" role="button" routerLink="/stadiums">Go Back</button>
+  

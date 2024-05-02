@@ -1,12 +1,15 @@
 
-<div  class="stadiums background-image"  style="background-image: url(../assets/images/background_{{image_number}}.png);">
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+<div *ngIf="isManager()" style="margin-left: 89.6%;margin-bottom: 1%;">  <a  routerLink='/stadiums/create' class="btn btn-primary" >Create Stadium</a></div>
+
+<div  *ngIf="!isLoading" class="stadiums background-image"  style="background-image: url(../assets/images/background_{{image_number}}.png);">
 <div class="card stadiums-row" *ngFor="let item of items;let i=index" >
-    <img class="card-img-top" src="../../../assets/images/helmet.jpg" alt="Card image cap">
+    <img class="card-img-top" height="250px" width="200px" [src]="item.imageUrl" alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">{{item.name}}</h5>
       <p class="card-text">ID: {{item.id}}{{item.type}}@{{item.location}} with capacity of {{item.capacity}}</p>
-      <a  routerLink='/stadiums/{{item.id}}' [queryParams]="{mode:'view'}" class="btn btn-primary">View</a>
-      <a  routerLink='/stadiums/{{item.id}}/matches' [queryParams]="{mode:'view'}" class="btn btn-primary">Mathces</a>
+      <a  routerLink='/stadiums/{{item.id}}' [queryParams]="{mode:'view',stadiumName:item.name}" class="btn btn-primary">View</a>
+      <a  routerLink='/stadiums/{{item.id}}/matches' [queryParams]="{stadiumName:item.name}" class="btn btn-primary" style="margin-left: 72%;">Mathces</a>
     </div>
   </div>
   <ul class="pager">

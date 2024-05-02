@@ -9,6 +9,7 @@ import {
   throwError,
 } from 'rxjs';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -16,18 +17,18 @@ export class AuthService {
   loggedIn: any = false;
   userObject: any;
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient, private route:Router) {}
 
-  isAuthenticated(): Promise<boolean> {
-    const promise: Promise<boolean> = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (this.userObject?.roles.includes('admin')) {
-          resolve(true);
-        }
-        resolve(false);
-      }, 800);
-    });
-    return promise;
+  isAuthenticated():any{ //Promise<boolean> {
+    // const promise: Promise<boolean> = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     if (this.userObject?.roles.includes('admin')) {
+    //       resolve(true);
+    //     }
+    //     resolve(false);
+    //   }, 800);
+    // });
+    // return promise;
   }
 
   login(form: any): boolean {
@@ -35,10 +36,15 @@ export class AuthService {
     let headers1 = new HttpHeaders();
     headers1 = headers1.append('X-event-id', 'id');
     this._httpClient
-      .get('https://google.com', { headers: headers1 })
+      .post('/system/login', form,{ headers: headers1 })
       .pipe(
-        map((response) => {
-          return response;
+        map((response:any) => {
+          let res= response;
+          if(res && res?.role){
+            res.roles=[response.role];
+          }
+          console.log(res);
+          return res;
         }),
         catchError((error) => {
           return throwError(() => of(new Error(error)));
@@ -47,14 +53,10 @@ export class AuthService {
       .subscribe({
         next: (res) => {
           if (res) {
+            res.password=form.password;
             sessionStorage.setItem(
               'token',
-              JSON.stringify({
-                id: 123,
-                name: 'Bala',
-                password: 'passsword@123',
-                roles: ['admin', 'manager', 'user'],
-              })
+              JSON.stringify(res)
             );
             let userParsed: User = this.getUser();
             if (userParsed != null) {
@@ -65,30 +67,13 @@ export class AuthService {
                 userParsed?.roles
               );
               this.user.next(this.userObject);
+              this.route.navigate(["/home"]);
             }
           }
         },
         error: (errorRes) => {
           console.log(errorRes);
-          sessionStorage.setItem(
-            'token',
-            JSON.stringify({
-              id: 123,
-              name: 'Bala',
-              password: 'passsword@123',
-              roles: ['admin', 'manager', 'user'],
-            })
-          );
-          let userParsed: User = this.getUser();
-          if (userParsed != null) {
-            this.userObject = new User(
-              userParsed?.id,
-              userParsed?.name,
-              userParsed?.passwod,
-              userParsed?.roles
-            );
-            this.user.next(this.userObject);
-          }
+          this.user.next(null);
         },
       });
     return true;
@@ -113,6 +98,13 @@ export class AuthService {
     });
   }
 
+  signUp(form:any){
+    if(form.isManager){
+      return this._httpClient.post("/system/stadium-managers/register",form);
+    }
+    return this._httpClient.post("/system/customer/register",form);
+  }
+
   getUser() {
     if (this.userObject != null) {
       return this.userObject;
@@ -130,6 +122,13 @@ export class AuthService {
 
   hasRole(roleName: string) {
     let user: User = this.getUser();
+    if(user == null) {
+      return false;
+    }
     return user.roles.includes(roleName);
+  }
+
+  isManager(){
+    return (this.hasRole("manager") || this.hasRole("admin"));
   }
 }

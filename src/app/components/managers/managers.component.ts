@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class ManagersComponent {
 
+  isLoading = true;
+
+  toggleLoading() {
+    this.isLoading = !this.isLoading;
+  }
+
 }

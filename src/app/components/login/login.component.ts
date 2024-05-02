@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/authentication/service/Auth.Service';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   isError:boolean= false;
   user:any;
 
-  constructor(private authService:AuthService, private _fb:FormBuilder, private route:Router){
+  constructor(private authService:AuthService, private _fb:FormBuilder, private router:Router, private activatedRoute:ActivatedRoute ){
     this.loginFormGroup = new FormGroup({});
   }
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     if(userFirst!=null){
       this.user = userFirst;
       this.authService.user.next(userFirst);
-      this.route.navigate(["/home"]);
+      this.router.navigate(["/home"]);
     }
     this.loginFormGroup = new FormGroup({
       email:new FormControl('',[Validators.required,Validators.email]),
@@ -38,16 +38,18 @@ export class LoginComponent implements OnInit {
     this.userSub = this.authService.user.subscribe((user)=>{
       if(user){
         this.user=user;
+        this.isAuthenticated=true;
+      }
+      else {
+        this.isError =true;
       }
     });
+    this.isError=false;
   }
 
 
   onLogin(){
     if(this.authService.login(this.loginFormGroup.value)){
-     this.isAuthenticated = true;
-     this.route.navigate(["/home"]);
     }
-    this.isError =true;
   }
 }

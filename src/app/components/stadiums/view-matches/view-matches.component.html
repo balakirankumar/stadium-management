@@ -1,14 +1,23 @@
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 
-<p>view-matches works!</p>
+<div *ngIf="isManeger()" style="margin-left: 89.6%;margin-bottom: 1%;">  <a  routerLink='/stadium/{{stadiumId}}/matches/create' [queryParams]="{'editMode':false,'stadiumName':stadiumName}" class="btn btn-primary" >Create Match</a></div>
+
+<div *ngIf="message.length > 0 " [ngClass]=" isError ? 'alert-danger' : 'alert-success'" class="alert alert-dismissible fade show">
+  <strong>{{isError ? 'Error' : 'Success'}}</strong> {{message}}..
+  <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="message = '';isError=!isError"></button>
+</div>
+
 
 <div  class="matches background-color">
-
 <div class="card stadiums-row" *ngFor="let item of matches;let i=index" >
-    <img class="card-img-top" src="../../../assets/images/helmet.jpg" alt="Card image cap">
+    <img class="card-img-top" height="250px" [src]="item.imageUrl" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">{{item.matchTitle}}</h5>
-      <p class="card-text">ID: {{item.team_1}} vs {{item.team_2}} @ {{item.statdiumName}}</p>
-      <a  routerLink='/stadiums/{{item.id}}' [queryParams]="{mode:'view'}" class="btn btn-primary">View</a>
+      <h5 class="card-title">{{item.gameTitle}}</h5>
+      <p class="card-text">ID: {{item.homeTeam}} vs {{item.awayTeam}} @ {{item.stadiumName}}</p>
+      <p class="card-text">Starts at {{item.startTime}}</p>
+      <a  routerLink='/stadium/{{stadiumId}}/matches/{{item.id}}' [queryParams]="{editMode:true,stadiumName:item.stadiumName}" class="btn btn-primary" style="margin-right: 68%;">Edit</a>
+      <a  routerLink='/bookings/book/match/{{stadiumId}}/tickets' [queryParams]="{stadiumName:item.stadiumName,scehduleId:item.id,gameTitle:item.gameTitle, image:item.imageUrl}"  class="btn btn-primary">Book</a>
+    
     </div>
   </div>
 
@@ -17,3 +26,4 @@
     <li class="next flex"><button  class="btn btn-dark" role="button" (click)="gotoNext($event)" [disabled]="pagination.currentPage >= totalPages">Next</button></li>
   </ul>
   </div>
+  <button role="button" class="btn btn-primary" style="margin-top: -4%;" (click)="goBack()">Back</button>

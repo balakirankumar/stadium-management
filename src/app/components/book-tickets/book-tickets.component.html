@@ -1,0 +1,89 @@
+<p>book-tickets works!</p>
+
+<div *ngIf="message.length > 0 " [ngClass]=" isError ? 'alert-danger' : 'alert-success'" class="alert alert-dismissible fade show">
+    <strong>{{isError ? 'error' : 'success'}}</strong> {{message}}..
+    <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="message = '';isError=!isError"></button>
+  </div>
+  <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+
+<div class="row-flex background-image" >
+    <div style="width: 50%;height: 400px; margin-right: 3%;"><img class="card-img-top" style="height: 400px;" [src]="imageUrl "alt="Card image cap"></div>
+ <form style="width: 60%;"  *ngIf="!this.paymentFormGroup.enabled" [formGroup]="bookingFormGroup"> 
+        <div class="form-group">
+          <label for="stadiumName">Stadium name</label>
+          <input formControlName="stadiumName" type="text" class="form-control" id="stadiumName" placeholder="Stadium name" >
+          <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+        </div>
+        <div class="form-group">
+            <label for="gameTitle">Game title</label>
+            <input formControlName="gameTitle" type="text" class="form-control" id="gameTitle" placeholder="Game title" >
+            <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+          </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="customerEmail">Custome Email</label>
+          <input formControlName="customerEmail" type="text" class="form-control" id="customerEmail" placeholder="Customer Email" >
+          <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+        </div>
+        <div class="form-group col-md-6">
+            <label for="customerName">Customer name</label>
+            <input formControlName="customerName" type="text" class="form-control" id="customerName" placeholder="Customer name" >
+            <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+          </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="seatType">Seat Type</label>
+          <select formControlName="seatType" id="inputState" class="form-control" >
+            <option [value]="seatType" *ngFor="let seatType of seatTypes;let i=index">{{seatType}}</option>
+          </select>
+          <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+        </div>
+        <div class="form-group col-md-6">
+            <label for="no_of_seats">No of Ceats</label>
+            <input formControlName="no_of_seats" type="text" class="form-control" id="no_of_seats" placeholder="No of seats" >
+            <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+          </div>
+    </div>
+    <div class="update-buttons">
+        <button  role="button" class="btn btn-primary" (click)="goToPayment($event)" [disabled]="!bookingFormGroup.valid">Make payment</button>
+      </div>
+</form>
+
+<form style="width: 60%;" *ngIf="this.paymentFormGroup.enabled" [formGroup]="paymentFormGroup"> 
+  <div class="form-group">
+    <label for="cardHolderName">Card number</label>
+    <input formControlName="cardHolderName" type="text" class="form-control" id="cardHolderName" placeholder="Card holder Name" >
+    <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+  </div>  
+  
+  <div class="form-group">
+      <label for="cardNumber">Card number</label>
+      <input formControlName="cardNumber" type="text" class="form-control" id="cardNumber" placeholder="Card number" >
+      <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+    </div>
+<div class="form-row">
+  <div class="form-group col-md-4">
+    <label for="month">Expiry month</label>
+    <input formControlName="month" type="text" class="form-control" id="month" placeholder="MM" >
+    <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+  </div>
+    <div class="form-group col-md-4">
+      <label for="year">Expiry year</label>
+      <input formControlName="year" type="text" class="form-control" id="year" placeholder="YY" >
+      <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+    </div>
+    <div class="form-group col-md-4">
+        <label for="cvv">Cvv</label>
+        <input formControlName="cvv" type="text" class="form-control" id="cvv" placeholder="CVV" >
+        <!-- <div *ngIf="signUpFormGroup.get('firstName')?.invalid && signUpFormGroup.get('firstName')?.touched" class="error-msg">Please specify valid first name</div> -->
+      </div>
+</div>
+<div class="update-buttons">
+  <button  role="button" class="btn btn-primary" (click)="goToBooking($event)">Go back</button>
+    <button  style="margin-left: 77%;" role="button" class="btn btn-primary" (click)="bookTickets()" [disabled]="!paymentFormGroup.valid">Book</button>
+  </div>
+</form>
+</div>
+
+<button class="btn btn-primary" style="margin: 2%;" role="button" (click)="goBack()">Back</button>

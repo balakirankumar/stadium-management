@@ -1,5 +1,11 @@
+
+<div *ngIf="message.length > 0 " [ngClass]=" isError ? 'alert-danger' : 'alert-success'" class="alert alert-dismissible fade show">
+  <strong>{{isError ? 'error' : 'success'}}</strong> {{message}}..
+  <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="message = '';isError=!isError"></button>
+</div>
 <div class="row-flex background-image">
-    <div style="width: 50%;height: 450px;"><img class="card-img-top" style="height: 450px;" src="../../../assets/icons/baseball.svg" alt="Card image cap"></div>
+  <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+    <div style="width: 50%;height: 500px;padding: 2%;"><img class="card-img-top" style="height: 450px;" [src]="stadiumFormGoup.get('imageUrl')?.value" alt="Card image cap"></div>
     <div class="stadium-form-details">
         <form [formGroup]="stadiumFormGoup">
             <div class="form-row">
@@ -16,12 +22,18 @@
                 </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-row">
+              <div class="form-group col-md-4">
               <label for="stadiumAddress">Stadium address</label>
               <input formControlName="location" type="text" class="form-control" id="stadiumAddress" placeholder="Stadium address"  >
             </div>
+            <div class="form-group col-md-7">
+              <label for="imageUrl">Stadium image</label>
+              <input formControlName="imageUrl" type="text" class="form-control" id="imageUrl" placeholder="Image Url"  >
+            </div>
+            </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label for="inputCity">City</label>
                 <input formControlName="city" type="text" class="form-control" id="inputCity" >
               </div>
@@ -32,14 +44,16 @@
                   <option [value]="'HYD'">HYD</option>
                 </select>
               </div>
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-4">
                 <label for="stadiumCapacity">Capacity</label>
                 <input formControlName="capacity" type="number" class="form-control" id="stadiumCapacity"  >
               </div>
             </div>
             <div class="update-buttons">
-              <button  role="button" class="btn btn-primary" (click)="editStadium($event)">Edit</button>
-              <button  *ngIf="!(!stadiumFormGoup.disabled && stadiumFormGoup.dirty)" role="button" class="btn btn-primary" (click)="updateStadium($event)" [disabled]="!(!this.stadiumFormGoup.disabled && stadiumFormGoup.dirty)">Save </button>
+              <a  routerLink='/stadiums/{{stadium.id}}/matches' [queryParams]="{stadiumName:stadium.name}" class="btn btn-primary" style="margin-left: 72%;">Mathces</a>
+              <button  *ngIf="isManager()" isManagerrole="button" class="btn btn-primary" (click)="editStadium($event)">Edit</button>
+              <button  *ngIf="isManager()" role="button" class="btn btn-danger" (click)="onDeleteStadium()">Delete</button>
+              <button  *ngIf="stadiumFormGoup.enabled" role="button" class="btn btn-primary" (click)="updateStadium($event)" [disabled]="!stadiumFormGoup.valid">Save </button>
             </div>
             </form>
     </div>
