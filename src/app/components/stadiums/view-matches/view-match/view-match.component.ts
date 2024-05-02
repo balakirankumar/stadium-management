@@ -153,6 +153,10 @@ export class ViewMatchComponent implements OnInit{
     });
   }
 
+  isManager(){
+    this.authService.isManager();
+  }
+
   goBack(){
     this.locationService.back();
   }

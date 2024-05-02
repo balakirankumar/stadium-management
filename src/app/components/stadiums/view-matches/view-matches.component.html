@@ -15,8 +15,8 @@
       <h5 class="card-title">{{item.gameTitle}}</h5>
       <p class="card-text">ID: {{item.homeTeam}} vs {{item.awayTeam}} @ {{item.stadiumName}}</p>
       <p class="card-text">Starts at {{item.startTime}}</p>
-      <a  routerLink='/stadium/{{stadiumId}}/matches/{{item.id}}' [queryParams]="{editMode:true,stadiumName:item.stadiumName}" class="btn btn-primary" style="margin-right: 68%;">Edit</a>
-      <a  routerLink='/bookings/book/match/{{stadiumId}}/tickets' [queryParams]="{stadiumName:item.stadiumName,scehduleId:item.id,gameTitle:item.gameTitle, image:item.imageUrl}"  class="btn btn-primary">Book</a>
+      <button *ngIf="isManeger()" class="btn btn-primary" style="margin-right: 68%;" ><a  role="button" routerLink='/stadium/{{stadiumId}}/matches/{{item.id}}' [queryParams]="{editMode:true,stadiumName:item.stadiumName}" >Edit</a></button>
+      <button class="btn btn-primary" ><a  role="button" routerLink='/bookings/book/match/{{stadiumId}}/tickets' [queryParams]="{stadiumName:item.stadiumName,scehduleId:item.id,gameTitle:item.gameTitle, image:item.imageUrl}" >Book </a> </button>
     
     </div>
   </div>
